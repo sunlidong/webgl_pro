@@ -1,84 +1,73 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css//index.css">
-    <script src="../lib/babylon.custom.js"></script>
-    <script src="../lib/babylonjs.loaders.min.js"></script>
-    <script src="../lib/pep.js"></script>
-    <title>Document</title>
-</head>
-<style>
-body{
-    display: flex;
-    flex-direction: flex-star;
-    justify-content: center;
-    align-items: center;
-}
-#show1{
-    width: 400px;
-    height: 300px;
-}
-</style>
-<body>
-    <!--必须是canvas元素,不能是div之类的其他元素-->
-    <canvas id="show1" touch-action="none"></canvas>
-</body>
-<script>
-    var canvas = document.getElementById("show1");  // 创建画布
-    var engine = new BABYLON.Engine(canvas, true);  // 创建渲染引擎
+<html xmlns="http://www.w3.org/1999/xhtml">
 
-    var create_scene = function(){
-        // 创建一个场景并返回
-        var scene = new BABYLON.Scene(engine);     // 创建场景
-        /* 创建一个弧形旋转摄像机. 参数说明如下:
-         * "Camera":  摄像机名称
-         * 第一个 Math.PI / 2 : alpha, 可以理解为水平角度.具体请看文档 
-         * 第二个 Math.PI / 2 : beta, 可以理解为垂直角度.具体请看文档 
-         * 2: radius, 这个是半径的意思.
-         * new BABYLON.Vector3(0, 0, 5) : target position.目标点的三维位置,可以理解为中心.这是一个向量类的实例
-         * scene: scene,场景变量.
-         * 详细文档请看这里: 看着图比较好理解的.https://doc.babylonjs.com/babylon101/cameras#arc-rotate-camera
-        */
-        var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, new BABYLON.Vector3(0, 0, 5), scene);
-        /* 让摄像机控制画布.
-         * canvas: element 是一个dom对象.
-         * true: noPreventDefault 是否阻止元素的默认事件.
-         * api: https://doc.babylonjs.com/api/classes/babylon.targetcamera
-        */
-        camera.attachControl(canvas, true);
-        /* 创建2个光源. HemisphericLight是半球形光源.PointLight是点光源.
-         * 第一个参数: name. 名字.
-         * 第二个参数: direction, 方向,是一个向量的实例.
-         * 第三个参数: scene, 场景.
-         * api: https://doc.babylonjs.com/api/classes/babylon.hemisphericlight#constructor
-        */
-        var light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(1, 1, 0), scene);
-        var light2 = new BABYLON.PointLight("light3", new BABYLON.Vector3(0, 1, -1), scene);
-        /* 创建一个球形的控制网格. options参数,请看api
-         * 第一个参数 name: 字符串, 名字
-         * 第二个参数 options: object, 参数对象.
-         * 第三个参数 scene: 场景
-         * api: https://doc.babylonjs.com/api/classes/babylon.meshbuilder#createsphere
-        */
-        var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 2}, scene);
-        return scene;
-    };
-    
-    var scene = create_scene();
-    /* 不停的渲染场景.
-     * runRenderLoop 是一个渲染循环.
-     * api: https://doc.babylonjs.com/api/classes/babylon.engine#runrenderloop
-    */
-    engine.runRenderLoop(function(){
-        scene.render();  // 渲染场景
-    });
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>Babylon Template</title>
 
-    window.addEventListener("resize", function(){
-        engine.resize();
-    });
+        <style>
+            html, body {
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
 
-</script>
+            #renderCanvas {
+                width: 100%;
+                height: 100%;
+                touch-action: none;
+            }
+        </style>
+
+        <script src="https://preview.babylonjs.com/babylon.js"></script>
+        <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+        <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+    </head>
+
+   <body>
+
+    <canvas id="renderCanvas" touch-action="none"></canvas> //touch-action="none" for best results from PEP
+
+    <script>
+        var canvas = document.getElementById("renderCanvas"); // 得到canvas对象的引用
+        var engine = new BABYLON.Engine(canvas, true); // 初始化 BABYLON 3D engine
+
+        /******* Add the create scene function ******/
+        var createScene = function () {
+
+            // 创建一个场景scene
+            var scene = new BABYLON.Scene(engine);
+
+            // 添加一个相机，并绑定鼠标事件
+            var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, new BABYLON.Vector3(0,0,5), scene);
+            camera.attachControl(canvas, true);
+
+            // 添加一组灯光到场景
+            var light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(1, 1, 0), scene);
+            var light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(0, 1, -1), scene);
+
+            // 添加一个球体到场景中
+            var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter:2}, scene);
+
+            return scene;
+        };
+        /******* End of the create scene function ******/
+
+        var scene = createScene(); //Call the createScene function
+
+        // 最后一步调用engine的runRenderLoop方案，执行scene.render()，让我们的3d场景渲染起来
+        engine.runRenderLoop(function () {
+                scene.render();
+        });
+
+        // 监听浏览器改变大小的事件，通过调用engine.resize()来自适应窗口大小
+        window.addEventListener("resize", function () {
+                engine.resize();
+        });
+    </script>
+
+   </body>
+
 </html>

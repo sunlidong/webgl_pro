@@ -1,0 +1,101 @@
+介绍
+本篇文章将介绍所有能够在项目中引入Babylon.js的方法，首先我们把babylon核心文件以及补充组件做一个简单的罗列和介绍。
+
+babylonjs - babylon的核心库，引入它就能让程序跑起来，下面的是功能补充的库
+babylonjs-materials - 集合了babylon官方提供的一组高级材质，提供更炫酷的效果
+babylonjs-loaders - 能够让babylon支持导入OBJ, STL, glTF等3d文件
+babylonjs-post-process - 后期特效库，能够让场景展示电影级别的滤镜效果
+babylonjs-procedural-textures - babylon官方提供的一组纹理贴图，可以展示更酷的效果
+babylonjs-serializers - 能够把场景Scene和物体mesh等元素序列化成为json配置并导出.
+babylonjs-gui - 交互组件库，支持按钮、复选框、下拉列表等表单元素
+babylonjs-inspector - 对babylon的3d场景进行运行时调试，可详细记录并显示babylon甚至webGL的运行情况，非常强大
+babylonjs-viewer - Babylon查看器，几行代码就能让3d内容展示到网页上。
+CDN
+babylon.js的文件能够从官网cdn直接引用，但好像国内访问有点慢，所以我们babylon中文网也提供了cdn支持。
+
+稳定版本
+未压缩版
+babylonjs : https://cdn.cnbabylon.com/babylon.max.js
+babylonjs-materials : https://cdn.cnbabylon.com/materialsLibrary/babylonjs.materials.js
+babylonjs-loaders : https://cdn.cnbabylon.com/loaders/babylonjs.loaders.js
+babylonjs-post-process: https://cdn.cnbabylon.com/postProcessesLibrary/babylonjs.postProcess.js
+babylonjs-procedural-textures : https://cdn.cnbabylon.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.js
+babylonjs-serializers : https://cdn.cnbabylon.com/serializers/babylonjs.serializers.js
+babylonjs-gui : https://cdn.cnbabylon.com/gui/babylon.gui.js
+babylonjs-inspector : https://cdn.cnbabylon.com/inspector/babylon.inspector.bundle.js
+压缩版
+babylonjs : https://cdn.cnbabylon.com/babylon.js
+babylonjs-materials : https://cdn.cnbabylon.com/materialsLibrary/babylonjs.materials.min.js
+babylonjs-loaders : https://cdn.cnbabylon.com/loaders/babylonjs.loaders.min.js
+babylonjs-post-process : https://cdn.cnbabylon.com/postProcessesLibrary/babylonjs.postProcess.min.js
+babylonjs-procedural-textures : https://cdn.cnbabylon.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js
+babylonjs-serializers : https://cdn.cnbabylon.com/serializers/babylonjs.serializers.min.js
+babylonjs-gui : https://cdn.cnbabylon.com/gui/babylon.gui.min.js
+引用示例
+<script src="https://cdn.cnbabylon.com/babylon.js"></script>
+<script src="https://cdn.cnbabylon.com/materialsLibrary/babylonjs.materials.min.js"></script>
+<script src="https://cdn.cnbabylon.com/loaders/babylonjs.loaders.min.js"></script>
+<script src="https://cdn.cnbabylon.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
+<script src="https://cdn.cnbabylon.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
+<script src="https://cdn.cnbabylon.com/serializers/babylonjs.serializers.min.js"></script>
+<script src="https://cdn.cnbabylon.com/gui/babylon.gui.min.js"></script>
+<script src="https://cdn.cnbabylon.com/inspector/babylon.inspector.bundle.js"></script>
+预览版
+只要把 cdn.cnbabylon.com 替换为 preview.cnbabylon.com 就可以了
+
+引用示例
+<script src="https://preview.cnbabylon.com/babylon.js"></script>
+<script src="https://preview.cnbabylon.com/materialsLibrary/babylonjs.materials.min.js"></script>
+<script src="https://preview.cnbabylon.com/loaders/babylonjs.loaders.min.js"></script>
+<script src="https://preview.cnbabylon.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
+<script src="https://preview.cnbabylon.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
+<script src="https://preview.cnbabylon.com/serializers/babylonjs.serializers.min.js"></script>
+<script src="https://preview.cnbabylon.com/gui/babylon.gui.min.js"></script>
+<script src="https://preview.cnbabylon.com/inspector/babylon.inspector.bundle.js"></script>
+NPM
+ES5
+要安装ES5版本请使用以下代码
+
+npm install --save-dev babylonjs
+npm install --save-dev babylonjs-materials
+npm install --save-dev babylonjs-loaders
+npm install --save-dev babylonjs-post-process
+npm install --save-dev babylonjs-procedural-textures
+npm install --save-dev babylonjs-serializers
+npm install --save-dev babylonjs-gui
+npm install --save-dev babylonjs-viewer
+ES6
+ES6的安装在babylon文件名前面多加了一个 @ 符号，并且后面的 - 变成了 /
+
+npm install --save-dev @babylonjs/core
+npm install --save-dev @babylonjs/materials
+npm install --save-dev @babylonjs/loaders
+npm install --save-dev @babylonjs/post-process
+npm install --save-dev @babylonjs/procedural-textures
+npm install --save-dev @babylonjs/serializers
+npm install --save-dev @babylonjs/gui
+npm install --save-dev @babylonjs/viewer
+安装其他版本的babylon
+只需要在模块后面加入 @ 并指定一个版本号即可
+
+ES5:
+npm install --save-dev babylonjs@4.1.0-rc.8
+ES6:
+npm install --save-dev babylonjs/core@4.1.0-rc.8
+引入模块
+ES5:
+import * as BABYLON from 'babylonjs'; //全部引入
+import { Engine, Scene } from 'babylonjs'; //只引入使用到的类
+import * as Materials from 'babylonjs-materials';//引入其他模块中的所有类，例如materials材质库
+ES6:
+import * as BABYLON from '@babylonjs/core/Legacy/legacy'; //全部引入
+import {Engine, Scene } from '@babylonjs/core'; //只引入使用到的类
+import "@babylonjs/materials/legacy/legacy"; //引入其他模块中的所有类，例如materials
+请注意上面的例子中ES5和ES6引入官方扩展库的方式区别：
+ES5使用import * as Materials from 'babylonjs-materials'，把所有组件挂在了Materials中，使用方法为：var skyMaterial = new Materials.SkyMaterial(.....)
+ES6使用import "@babylonjs/materials/legacy/legacy"，把所有组件挂在了BABYLON中，使用方法为：var skyMaterial = new BABYLON.SkyMaterial(.....)
+当然ES6和ES5都支持按需导入，例如ES5 import { SkyMaterial } from 'babylonjs-materials'，ES6：import { Engine } from '@babylonjs/core/Engines/engine'
+
+注意事项
+通过npm install安装的babylon模块，默认是安装稳定版本，如果想体验最新功能，请参照安装其他版本的babylon来指定最新版本的babylon模块。
+inspector和viewer模块属于独立功能的组件，平时开发可以不用引入。
