@@ -50,49 +50,80 @@
      // 矩阵添加到 场景中
      scene.add(plane);
 
-
+     // 创建一个立方体  BoxGeometry
      var cubeGeometry = new THREE.BoxGeometry(4, 4, 4);
+
+     // 创建 简单的材质 
      var cubeMaterial = new THREE.MeshBasicMaterial({
+         // color	材料的颜色值，默认为白色
          color: 0xFF0000,
+         // wireframe	是否以线框模式呈现，默认为false
          wireframe: true
      });
 
+
+        //  创建一个网格对象 
      var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
 
+
+     //  平移矩阵
      cube.position.set(-4, 3, 0);
 
+     //  添加到场景中 
      scene.add(cube);
 
+        //  SphereGeometry 球体是 three.js 中较简单的另一种几何体
+        /*
+        radius	可选。此属性定义球体的半径。
+        widthSegments	可选。此属性定义球体竖直（维度）方向上的分段数。默认值是 8，最小值是 3
+        heightSegments	可选。此属性定义球体水平（经度）方向上的分段数。默认值是 6，最小值是 2
+        phiStart	可选。此属性定义从 x 轴的什么地方开始绘制。取值范围是 0 到 2*π
+        phiLength	可选。此属性定义从 phiStart 开始绘制多少。取值范围是 0 到 2*π
+        thetaStart	可选。此属性定义从 y 轴的什么地方开始绘制。取值范围是 0 到 π
+        thetaLength	可选。此属性定义从 thetaStart 开始绘制多少。取值范围是 0 到 π。一个 π 是整球，0.5*π只绘制上半球
+        */
      var sphereGeometry = new THREE.SphereGeometry(4, 20, 20);
+
+        //  创建 材质 
      var sphereMaterial = new THREE.MeshBasicMaterial({
          color: 0x77777FF,
          wireframe: true
      });
 
-
+        //  创建网格对象
      var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
 
+        // 设置 坐标 位置 
      cube.position.set(-4, 3, 0);
 
+        //  添加到场景 
      scene.add(cube);
 
+        //    SphereGeometry 球体
      var sphereGeometry = new THREE.SphereGeometry(4, 20, 20);
+        //      创建材质  
      var sphereMaterial = new THREE.MeshBasicMaterial({
          color: 0x7777FF,
          wireframe: true
      });
+
+        // 创建 网格对象 
      var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 
+        // 设置坐标
      sphere.position.set(20, 4, 2);
 
+        //  相机设置 坐标  观察点  
      camera.position.set(-30, 40, 30);
+
+        //  looKAt camera为相机看的目标点：因为屏幕显示的是相机视椎体的可视范围，而相机的lookAt方法指的是相机观察的目标点
      camera.lookAt(scene.position);
 
+        //   获取  div 对象  
      document.getElementById("webgl-output").appendChild(renderer.domElement);
 
+        //  渲染器渲染 场景 和相机 
      renderer.render(scene, camera);
-
-
 
 
  }
